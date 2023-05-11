@@ -11,7 +11,7 @@ export async function getGames(req, res) {
 
 export async function insertGame(req,res){
     const {name, image, stockTotal, pricePerDay}= req.body
-    const existing= await db.query(`SELECT * FROM games WHERE name= $1;`, [name]);
+    const existing= await db.query(`SELECT * FROM games WHERE name= ${name};`);
 
     if(existing){
         return res.sendStatus(409)
