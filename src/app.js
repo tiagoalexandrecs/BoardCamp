@@ -7,6 +7,5 @@ app.use(cors());
 app.use(express.json());
 app.use(router);
 
-//criar o env DATABASE_URL=mongodb://localhost:27017/moodboard
-const port = process.env.PORT;
+const port = 4000;
 app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
