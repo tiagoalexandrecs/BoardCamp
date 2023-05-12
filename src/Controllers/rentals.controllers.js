@@ -3,7 +3,9 @@ import { db } from "../Database/database.connection.js"
 
 
 export async function getRentals(req,res){
-    const rentals= await db.query(`SELECT * FROM rentals`)
+    const rentals= await db.query(`SELECT rentals.*, customers.id, customers.name, games.id, games.name
+    FROM rentals
+    JOIN rentals ON rentals."idCategoria"=categorias.id`)
 
     let response=[]
     for( let i=0; i < rentals.rowCount; i++){
@@ -56,5 +58,25 @@ export async function insertRental(req,res){
         res.sendStatus(201)
     } catch (err) {
         res.status(500).send(err.message)
+    }
+}
+
+export async function deleteRental(req,res){
+    const {id}= req.body
+    const existing= await db.query(`SELECT * FROM rentals WHERE id= $1}`,[id])
+
+    if(!existing){
+        return res.sendStatus(404)
+    }
+    else{
+        if (existing.returnDate === null){
+            return res.sendStatus(400)
+        }
+        try{
+            await db.query(`DELETE FROM rentals WHERE id=$1`, [id])
+            return res.sendStatus(200)
+        } catch(err){
+            console.log(err.message)
+        }
     }
 }
