@@ -1,4 +1,7 @@
-import joi from "joi"
+import JoiBase from "joi"
+import JoiDate from "@joi/date"
+
+const joi= JoiBase.extend(JoiDate)
 
 const clientSchema= joi.object({
     name: joi.string().required(),
