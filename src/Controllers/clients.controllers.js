@@ -30,7 +30,7 @@ export async function insertClient(req,res){
 
 export async function getClientById(req, res) {
     const { id } = req.params;
-    try{const client= await db.query(`SELECT * FROM customers WHERE cpf= $1;`, [id]);
+    try{const client= await db.query(`SELECT * FROM customers WHERE id= $1;`, [id]);
     if(!client){
         return res.sendStatus(404)
     }
@@ -47,7 +47,7 @@ export async function getClientById(req, res) {
     const {name, phone, cpf, birthday}= req.body
     const existing= await db.query(`SELECT * FROM customers WHERE cpf= $1;`, [cpf]);
 
-    if(existing.rows.length !==0){
+    if(existing.rows.length !==0 && existing.rows[0].id !== id){
         return res.sendStatus(409)
     }
     
