@@ -38,7 +38,7 @@ export async function insertRental(req,res){
    
     const existingC= await db.query(`SELECT * FROM customers WHERE id= $1;`, [customerId]);
     const existingG= await db.query(`SELECT * FROM games WHERE id= $1;`, [gameId])
-    const rentals= await db.query(`SELECT * FROM rentals WHERE "returnDate" IS NULL `)
+    const rentals= await db.query(`SELECT * FROM rentals WHERE id=$1`, [gameId])
 
     const ongoingRentals= Number(rentals.rows.length)
 
@@ -48,7 +48,7 @@ export async function insertRental(req,res){
     const returnDate = null;
     const delayFee = null;
 
-    if(existingC.rows.length===0 || existingG.rows.length===0|| ongoingRentals > existingG.rows[0].stockTotal){
+    if(existingC.rows.length===0 || existingG.rows.length===0|| ongoingRentals >= existingG.rows[0].stockTotal){
         return res.sendStatus(400)
     }
     
