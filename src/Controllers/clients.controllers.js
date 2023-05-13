@@ -13,7 +13,7 @@ export async function insertClient(req,res){
     const {name, phone, cpf, birthday}= req.body
     const existing= await db.query(`SELECT * FROM customers WHERE cpf= $1;`, [cpf]);
 
-    if(existing){
+    if(existing.rows.length !==0){
         return res.sendStatus(409)
     }
     
