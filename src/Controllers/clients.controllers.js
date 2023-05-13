@@ -31,7 +31,7 @@ export async function insertClient(req,res){
 export async function getClientById(req, res) {
     const { id } = req.params;
     try{const client= await db.query(`SELECT * FROM customers WHERE id= $1;`, [id]);
-    if(!client){
+    if(client.rows.length === 0){
         return res.sendStatus(404)
     }
     else{
