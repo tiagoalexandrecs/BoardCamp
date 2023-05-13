@@ -3,7 +3,18 @@ import { db } from "../Database/database.connection.js"
 export async function getClients(req, res) {
     try {
       const clients = await db.query("SELECT * FROM customers");
-      res.send(clients.rows);
+      const formatClients=[]
+      for (let i=0; i < clients.rows[0].length; i++){
+        formatClients.push(
+            {
+                id: clients.rows[i].id,
+                name: clients.rows[i].name,
+                cpf: clients.rows[i].cpf,
+                birthday: clients.rows[i].birthday.toISOString().slice(0, 10)
+            }
+        )
+      }
+      return res.status(200).send(formatClients)
     } catch (err) {
       res.status(500).send(err.message);
     }
@@ -57,7 +68,7 @@ export async function getClientById(req, res) {
     try {
         await db.query(`UPDATE customers SET name=$2, phone=$3, cpf=$4, birthday=$5 WHERE id = $1;
     `, [id, name, phone, cpf, birthday])
-        return res.sendStatus(201)
+        return res.sendStatus(200)
     } catch (err) {
         res.status(500).send(err.message)
     }
