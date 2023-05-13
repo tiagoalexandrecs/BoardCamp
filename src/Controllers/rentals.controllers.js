@@ -3,9 +3,10 @@ import { db } from "../Database/database.connection.js"
 
 
 export async function getRentals(req,res){
-    const rentals= await db.query(`SELECT rentals.*, customers.id, customers.name, games.id, games.name
+    const rentals= await db.query(`SELECT rentals.*, customers.*, games.*
     FROM rentals
-    JOIN rentals ON rentals."idCategoria"=categorias.id`)
+    JOIN customers ON rentals."customerId"=customers.id
+    JOIN games ON rentals."gameId"=game.id`)
 
     let response=[]
     for( let i=0; i < rentals.rowCount; i++){
@@ -36,7 +37,7 @@ export async function insertRental(req,res){
    
     const existingC= await db.query(`SELECT * FROM customers WHERE id= $1;`, [customerId]);
     const existingG= await db.query(`SELECT * FROM games WHERE id= $1;`, [gameId])
-    const rentals= await db.query(`SELECT * FROM rentals WHERE "returnDate" is NULL `)
+    const rentals= await db.query(`SELECT * FROM rentals WHERE "returnDate" IS NULL `)
 
     const ongoingRentals= Number(rentals.rowCount)
 
