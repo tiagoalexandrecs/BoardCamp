@@ -9,6 +9,7 @@ export async function getClients(req, res) {
             {
                 id: clients.rows[i].id,
                 name: clients.rows[i].name,
+                phone: clients.rows[i].phone,
                 cpf: clients.rows[i].cpf,
                 birthday: clients.rows[i].birthday.toISOString().slice(0, 10)
             }
@@ -49,6 +50,7 @@ export async function getClientById(req, res) {
         const formatClient={
             id: client.rows[0].id,
             name: client.rows[0].name,
+            phone: client.rows[0].phone,
             cpf: client.rows[0].cpf,
             birthday: client.rows[0].birthday.toISOString().slice(0, 10)
         }

@@ -22,11 +22,11 @@ export async function getRentals(req,res){
             delayFee: rentals.rows[i].delayFee,
             customer: {
                id: rentals.rows[i].customerId,
-               name: 'João Alfredo'
+               name: rentals.rows[i].customers.name
             },
             game: {
               id: rentals.rows[i].gameId,
-              name: 'Banco Imobiliário'
+              name: rentals.rows[i].games.name
             }
         })
     }
@@ -42,7 +42,7 @@ export async function insertRental(req,res){
 
     const ongoingRentals= Number(rentals.rows.length)
 
-    let now= dayjs().format("YYYYY-MM-DD")
+    let now= dayjs().toISOString().slice(0, 10)
 
     const originalPrice= daysRented * existingG.rows[0].pricePerDay
     const returnDate = null;
@@ -95,7 +95,7 @@ export async function finalizeRental(req,res){
     else{
         const timestamp= dayjs(rental.rows[0].rentDate).toDate().getTime()
         const now= dayjs()
-        const returndate= now.format("YYYY-MM-DD")
+        const returndate= now.toISOString().slice(0, 10)
         const rentedDays= rental.rows[0].daysRented * 86400000 
         const rentedTime= now - timestamp
         if ( rentedTime <= rentedDays){
