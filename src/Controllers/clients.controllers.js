@@ -47,7 +47,9 @@ export async function getClientById(req, res) {
     const {name, phone, cpf, birthday}= req.body
     const existing= await db.query(`SELECT * FROM customers WHERE cpf= $1;`, [cpf]);
 
-    if(existing.rows.length !==0 && existing.rows[0].id !== id){
+    
+
+    if(existing.rows.length !==0 && existing.rows[0].id !== Number(id)){
         return res.sendStatus(409)
     }
     
