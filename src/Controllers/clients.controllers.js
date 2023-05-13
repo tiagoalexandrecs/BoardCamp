@@ -20,8 +20,8 @@ export async function insertClient(req,res){
     
     try {
         await db.query(`INSERT INTO customers (name, phone, cpf, birthday) VALUES
-        (${name}, ${phone}, ${cpf}, ${birthday});
-    `)
+        ($1, $2, $3, $4);
+    `, [name, phone, cpf, birthday])
         res.sendStatus(201)
     } catch (err) {
         res.status(500).send(err.message)
@@ -53,8 +53,8 @@ export async function getClientById(req, res) {
     
     
     try {
-        await db.query(`UPDATE customers SET name=${name}, phone=${phone}, cpf=${cpf}, birthday=${birthday} WHERE id = $1;
-    `, [id])
+        await db.query(`UPDATE customers SET name=$2, phone=$3, cpf=$4, birthday=$5 WHERE id = $1;
+    `, [id, name, phone, cpf, birthday])
         return res.sendStatus(201)
     } catch (err) {
         res.status(500).send(err.message)
