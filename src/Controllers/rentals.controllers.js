@@ -59,7 +59,7 @@ export async function insertRental(req,res){
     `, [customerId, gameId, now,, daysRented,returnDate,originalPrice, delayFee ])
         res.sendStatus(201)
     } catch (err) {
-        res.status(500).send(err.message)
+        res.status(505).send(err.message)
     }
 }
 
