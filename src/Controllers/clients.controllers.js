@@ -46,19 +46,16 @@ export async function getClientById(req, res) {
         return res.sendStatus(404)
     }
     else{
-        const formatClients=[]
-        for (let i=0; i < client.rows[0].length; i++){
-          formatClients.push(
-              {
-                  id: client.rows[i].id,
-                  name: client.rows[i].name,
-                  cpf: client.rows[i].cpf,
-                  birthday: client.rows[i].birthday.toISOString().slice(0, 10)
-              }
-          )
+        const formatClient={
+            id: client.rows[0].id,
+            name: client.rows[0].name,
+            cpf: client.rows[0].cpf,
+            birthday: client.rows[0].birthday.toISOString().slice(0, 10)
         }
-        return res.status(200).send(formatClients)
-    }}catch (err) {
+              
+              return res.status(200).send(formatClient)
+        }
+    }catch (err) {
         return res.status(500).send(err.message);
       }
   }

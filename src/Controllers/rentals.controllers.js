@@ -48,7 +48,7 @@ export async function insertRental(req,res){
     const returnDate = null;
     const delayFee = null;
 
-    if(!existingC || !existingG|| ongoingRentals > existingG.rows[0].stockTotal){
+    if(existingC.rows.length===0 || existingG.rows.length===0|| ongoingRentals > existingG.rows[0].stockTotal){
         return res.sendStatus(400)
     }
     
