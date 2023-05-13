@@ -40,7 +40,7 @@ export async function insertRental(req,res){
     const existingG= await db.query(`SELECT * FROM games WHERE id= $1;`, [gameId])
     const rentals= await db.query(`SELECT * FROM rentals WHERE "returnDate" IS NULL `)
 
-    const ongoingRentals= Number(rentals.rowCount)
+    const ongoingRentals= Number(rentals.rows.length)
 
     let now= dayjs().format("YYYYY-MM-DD")
 
