@@ -38,7 +38,7 @@ export async function insertRental(req,res){
    
     const existingC= await db.query(`SELECT * FROM customers WHERE id= $1;`, [customerId]);
     const existingG= await db.query(`SELECT * FROM games WHERE id= $1;`, [gameId])
-    const rentals= await db.query(`SELECT * FROM rentals WHERE id=$1`, [gameId])
+    const rentals= await db.query(`SELECT * FROM rentals WHERE "gameId"=$1`, [gameId])
 
     const ongoingRentals= Number(rentals.rows.length)
 
