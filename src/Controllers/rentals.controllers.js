@@ -120,7 +120,7 @@ export async function finalizeRental(req,res){
             const fee= rental.rows[0].originalPrice * lateDays
             console.log(lateTime)
             console.log(lateDays)
-            console.log(fee)
+            console.log(fee) 
             try{
                 await db.query(`UPDATE rentals SET "returnDate"=$2, "delayFee"=$3 WHERE id = $1;
                 `, [id, returndate, fee])
