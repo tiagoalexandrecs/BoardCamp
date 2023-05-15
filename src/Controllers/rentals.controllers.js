@@ -44,7 +44,7 @@ export async function insertRental(req,res){
 
     let now= dayjs().toISOString().slice(0, 10)
 
-    console.log(existingG.rows[0])
+    console.log(existingG.rows[0]) 
 
     const originalPrice= daysRented * Number(existingG.rows[0].pricePerDay)
     const returnDate = null;
