@@ -10,6 +10,7 @@ export async function getRentals(req,res){
     JOIN games ON rentals."gameId"=games.id`)
 
     let response=[]
+    console.log(rentals)
     for( let i=0; i < rentals.rowCount; i++){
         response.push({
             id: rentals.rows[i].id,
