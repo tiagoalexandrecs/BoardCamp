@@ -4,7 +4,7 @@ import { db } from "../Database/database.connection.js"
 
 
 export async function getRentals(req,res){
-    const rentals= await db.query(`SELECT rentals.*, customers.id,customers.name, games.id, games.name
+    const rentals= await db.query(`SELECT rentals.*, customers.id,customers.name AS "custName", games.id, games.name AS "gamName"
     FROM rentals
     JOIN customers ON rentals."customerId"=customers.id
     JOIN games ON rentals."gameId"=games.id`)
@@ -23,11 +23,11 @@ export async function getRentals(req,res){
             delayFee: rentals.rows[i].delayFee,
             customer: {
                id: rentals.rows[i].customerId,
-               name: rentals.rows[i].customers.name
+               name: rentals.rows[i].custName
             },
             game: {
               id: rentals.rows[i].gameId,
-              name: rentals.rows[i].games.name
+              name: rentals.rows[i].gamName
             }
         })
     }
