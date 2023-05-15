@@ -4,10 +4,10 @@ import { db } from "../Database/database.connection.js"
 
 
 export async function getRentals(req,res){
-    const rentals= await db.query(`SELECT rentals.*, customers.*, games.*
+    const rentals= await db.query(`SELECT rentals.*, customers.id,customers.name, games.id, games.name
     FROM rentals
     JOIN customers ON rentals."customerId"=customers.id
-    JOIN games ON rentals."gameId"=game.id`)
+    JOIN games ON rentals."gameId"=games.id`)
 
     let response=[]
     for( let i=0; i < rentals.rowCount; i++){
