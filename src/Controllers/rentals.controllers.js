@@ -71,11 +71,11 @@ export async function deleteRental(req,res){
     const {id}= req.body
     const existing= await db.query(`SELECT * FROM rentals WHERE id= $1}`,[id])
 
-    if(!existing){
+    if(existing.rows.length === 0){
         return res.sendStatus(404)
     }
     else{
-        if (existing.returnDate === null){
+        if (existing.rows[0].returnDate === null){
             return res.sendStatus(400)
         }
         try{
@@ -98,6 +98,8 @@ export async function finalizeRental(req,res){
     }
     else{
         const timestamp= dayjs(rental.rows[0].rentDate).toDate().getTime()
+        console.log(rental.rows[0].rentDate)
+        console.log(timestamp)
         const now= dayjs()
         const returndate= now.toISOString().slice(0, 10)
         const rentedDays= rental.rows[0].daysRented * 86400000 
@@ -116,6 +118,9 @@ export async function finalizeRental(req,res){
             const lateTime= rentedTime- rentedDays
             const lateDays= Math.floor(lateTime/86400000)
             const fee= rental.rows[0].originalPrice * lateDays
+            console.log(lateTime)
+            console.log(lateDays)
+            console.log(fee)
             try{
                 await db.query(`UPDATE rentals SET "returnDate"=$2, "delayFee"=$3 WHERE id = $1;
                 `, [id, returndate, fee])
