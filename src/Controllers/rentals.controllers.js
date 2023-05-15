@@ -9,10 +9,10 @@ export async function getRentals(req,res){
     JOIN customers ON rentals."customerId"=customers.id
     JOIN games ON rentals."gameId"=games.id`)
 
-    let response=[]
+    let lista=[]
     console.log(rentals)
     for( let i=0; i < rentals.rowCount; i++){
-        response.push({
+        lista.push({
             id: rentals.rows[i].id,
             customerId: rentals.rows[i].customerId,
             gameId: rentals.rows[i].gameId,
@@ -31,6 +31,7 @@ export async function getRentals(req,res){
             }
         })
     }
+    return res.status(200).send(lista)
 
 }
 
