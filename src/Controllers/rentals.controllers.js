@@ -90,7 +90,7 @@ export async function deleteRental(req,res){
 export async function finalizeRental(req,res){
     const {id}= req.params
     const rental= await db.query(`SELECT * FROM rentals WHERE id= $1;`,[id]);
-    if(rental.rows.length !==0){
+    if(rental.rows.length ===0){
         return res.sendStatus(404)
     }
     else if(rental.rows[0].returnDate !== null){
