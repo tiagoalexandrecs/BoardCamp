@@ -68,7 +68,7 @@ export async function insertRental(req,res){
 }
 
 export async function deleteRental(req,res){
-    const {id}= parseInt(req.params)
+    const id= parseInt(req.params.id)
     const existing= await db.query(`SELECT * FROM rentals WHERE id= $1}`,[id])
 
     if(existing.rows.length === 0){
