@@ -116,7 +116,7 @@ export async function finalizeRental(req,res){
         }
         else{
             const lateTime= rentedTime- rentedDays
-            const lateDays= Math.floor(lateTime/86400000)
+            const lateDays= Math.floor(lateTime/86400000)/3;
             const fee= rental.rows[0].originalPrice * lateDays
             console.log(lateTime)
             console.log(lateDays)
