@@ -1,5 +1,5 @@
 # BoardCamp
-An application capable of tracking the rent dynamics of board games by the usage os Postgres, a relational database related to SQL. In addition, Javascript was implemented as main programming language for this project, as well as Node.js and Express.js as the application's frameorks.
+A back-end application capable of tracking the rent dynamics of board games by the usage os Postgres, a relational database related to SQL. In addition, Javascript was implemented as main programming language for this project, as well as Node.js and Express.js as the application's frameorks.
 
 In order to run this backend system, follow the steps below:
 
